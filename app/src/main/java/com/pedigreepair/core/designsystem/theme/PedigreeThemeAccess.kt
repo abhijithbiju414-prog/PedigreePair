@@ -16,6 +16,7 @@ internal val LocalPedigreeColors = staticCompositionLocalOf {
         background = BackgroundLight,
         surface = SurfaceLight,
         textPrimary = TextPrimaryLight,
+
         textSecondary = TextPrimaryDark,
         isMagicTheme = false
     )
