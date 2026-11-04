@@ -14,4 +14,9 @@ data class PedigreeColors(
     val textPrimary: Color,
     val textSecondary: Color,
     val isMagicTheme: Boolean
-)
+){
+    // Convenience aliases matching common UI token naming
+    val onBackground: Color get() = textPrimary
+    val onSurface: Color get() = textPrimary
+    val onPrimary: Color get() = Color.White
+}
