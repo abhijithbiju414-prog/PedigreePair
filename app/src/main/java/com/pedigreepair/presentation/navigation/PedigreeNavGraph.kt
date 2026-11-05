@@ -7,6 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.pedigreepair.domain.model.AppLaunchDestination
+import com.pedigreepair.presentation.home.HomeScreenRoute
+import com.pedigreepair.presentation.home.HomeViewModel
 import com.pedigreepair.presentation.privacypolicy.PrivacyPolicyScreen
 import com.pedigreepair.presentation.privacypolicy.PrivacyPolicyViewModel
 import com.pedigreepair.presentation.splash.SplashScreen
@@ -79,7 +81,28 @@ fun PedigreeNavGraph(
         }
 
         composable<ScreenRoute.Home> {
-            // Next: HomeScreen
+            val homeViewModel: HomeViewModel = hiltViewModel()
+            HomeScreenRoute(
+                viewModel = homeViewModel,
+                onNavigateToDogDetails = { dogId ->
+                   // navController.navigate(ScreenRoute.DogDetail(dogId = dogId))
+                },
+                onNavigateToEventDetails = { eventId ->
+                   // navController.navigate(ScreenRoute.EventDetails(eventId = eventId))
+                },
+                onOpenProfile = {
+                    //navController.navigate(ScreenRoute.Profile)
+                },
+                onOpenFilterSheet = {
+                    //navController.navigate(ScreenRoute.FilterSheet)
+                },
+                onOpenNotifications = {
+                    //navController.navigate(ScreenRoute.Notifications)
+                },
+                bottomBarAnchor = {
+                    // Reserved for AppBottomBar when created
+                }
+            )
         }
     }
 }

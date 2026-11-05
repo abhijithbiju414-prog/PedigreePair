@@ -89,4 +89,5 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.coil.compose)
 }

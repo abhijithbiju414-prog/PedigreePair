@@ -1,5 +1,6 @@
 package com.pedigreepair.presentation.navigation
 
+import android.media.metrics.Event
 import kotlinx.serialization.Serializable
 
 sealed interface ScreenRoute {
@@ -22,5 +23,17 @@ sealed interface ScreenRoute {
 
     @Serializable
     data class DogDetail(val dogId: String)
+
+    @Serializable
+    data object Profile : ScreenRoute
+
+    @Serializable
+    data object FilterSheet : ScreenRoute
+
+    @Serializable
+    data object Notifications : ScreenRoute
+
+    @Serializable
+    data class EventDetails(val eventId: String) : ScreenRoute
 
 }
