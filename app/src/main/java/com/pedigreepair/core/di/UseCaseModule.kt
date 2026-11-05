@@ -3,7 +3,10 @@ package com.pedigreepair.core.di
 import com.pedigreepair.domain.repository.DogRepository
 import com.pedigreepair.domain.repository.OnboardingRepository
 import com.pedigreepair.domain.repository.ThemeRepository
+import com.pedigreepair.domain.repository.home.HomeFeedRepository
 import com.pedigreepair.domain.usecase.dog.GetDogsUseCase
+import com.pedigreepair.domain.usecase.home.GetHomeFeedUseCase
+import com.pedigreepair.domain.usecase.home.ToggleFavoriteUseCase
 import com.pedigreepair.domain.usecase.onboarding.CheckAppLaunchDestinationUseCase
 import com.pedigreepair.domain.usecase.onboarding.RecordPolicyAcceptanceUseCase
 import com.pedigreepair.domain.usecase.theme.ObserveActiveThemeUseCase
@@ -65,5 +68,21 @@ object UseCaseModule {
         onboardingRepository: OnboardingRepository
     ): RecordPolicyAcceptanceUseCase {
         return RecordPolicyAcceptanceUseCase(onboardingRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetHomeFeedUseCase(
+        repository: HomeFeedRepository
+    ): GetHomeFeedUseCase {
+        return GetHomeFeedUseCase(repository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideToggleFavoriteUseCase(
+        repository: HomeFeedRepository
+    ): ToggleFavoriteUseCase {
+        return ToggleFavoriteUseCase(repository)
     }
 }

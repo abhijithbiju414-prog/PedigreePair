@@ -39,6 +39,7 @@ class PrivacyPolicyViewModel @Inject constructor(
             result.fold(
                 onSuccess = {
                     _uiState.update { it.copy(isSubmitting = false) }
+                    _effect.send(PrivacyPolicyUiEffect.NavigateToHome)
                 },
                 onFailure = { throwable ->
                     _uiState.update {
