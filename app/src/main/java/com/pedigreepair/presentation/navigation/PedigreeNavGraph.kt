@@ -7,6 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.pedigreepair.domain.model.AppLaunchDestination
+import com.pedigreepair.presentation.privacypolicy.PrivacyPolicyScreen
+import com.pedigreepair.presentation.privacypolicy.PrivacyPolicyViewModel
 import com.pedigreepair.presentation.splash.SplashScreen
 import com.pedigreepair.presentation.splash.SplashViewModel
 import com.pedigreepair.presentation.tutorial.TutorialScreen
@@ -65,7 +67,15 @@ fun PedigreeNavGraph(
         }
 
         composable<ScreenRoute.PrivacyPolicy> {
-            // Next: PrivacyPolicyScreen
+            val policyViewModel: PrivacyPolicyViewModel = hiltViewModel()
+            PrivacyPolicyScreen(
+                viewModel = policyViewModel,
+                onNavigateToHome = {
+                    navController.navigate(ScreenRoute.Home) {
+                        popUpTo(ScreenRoute.PrivacyPolicy)
+                    }
+                }
+            )
         }
 
         composable<ScreenRoute.Home> {

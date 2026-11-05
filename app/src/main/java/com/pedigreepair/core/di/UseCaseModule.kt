@@ -5,6 +5,7 @@ import com.pedigreepair.domain.repository.OnboardingRepository
 import com.pedigreepair.domain.repository.ThemeRepository
 import com.pedigreepair.domain.usecase.dog.GetDogsUseCase
 import com.pedigreepair.domain.usecase.onboarding.CheckAppLaunchDestinationUseCase
+import com.pedigreepair.domain.usecase.onboarding.RecordPolicyAcceptanceUseCase
 import com.pedigreepair.domain.usecase.theme.ObserveActiveThemeUseCase
 import com.pedigreepair.domain.usecase.tutorial.CompleteTutorialUseCase
 import com.pedigreepair.domain.usecase.tutorial.GetTutorialStepsUseCase
@@ -56,5 +57,13 @@ object UseCaseModule {
         onboardingRepository: OnboardingRepository
     ): GetTutorialStepsUseCase {
         return GetTutorialStepsUseCase(onboardingRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideRecordPolicyAcceptanceUseCase(
+        onboardingRepository: OnboardingRepository
+    ): RecordPolicyAcceptanceUseCase {
+        return RecordPolicyAcceptanceUseCase(onboardingRepository)
     }
 }
