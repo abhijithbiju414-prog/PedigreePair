@@ -7,6 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.pedigreepair.domain.model.AppLaunchDestination
+import com.pedigreepair.presentation.details.DogDetailRoute
+import com.pedigreepair.presentation.details.DogDetailViewModel
 import com.pedigreepair.presentation.home.HomeScreenRoute
 import com.pedigreepair.presentation.home.HomeViewModel
 import com.pedigreepair.presentation.privacypolicy.PrivacyPolicyScreen
@@ -85,7 +87,7 @@ fun PedigreeNavGraph(
             HomeScreenRoute(
                 viewModel = homeViewModel,
                 onNavigateToDogDetails = { dogId ->
-                   // navController.navigate(ScreenRoute.DogDetail(dogId = dogId))
+                    navController.navigate(ScreenRoute.DogDetail(dogId = dogId))
                 },
                 onNavigateToEventDetails = { eventId ->
                    // navController.navigate(ScreenRoute.EventDetails(eventId = eventId))
@@ -99,8 +101,23 @@ fun PedigreeNavGraph(
                 onOpenNotifications = {
                     //navController.navigate(ScreenRoute.Notifications)
                 },
-                bottomBarAnchor = {
-                    // Reserved for AppBottomBar when created
+                onNavigateToBottomDestination = { targetRoute ->
+                    navController.navigate(targetRoute) {
+                        popUpTo(ScreenRoute.Home) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
+            )
+        }
+
+        composable<ScreenRoute.DogDetail> { backStackEntry ->
+            val viewModel: DogDetailViewModel = hiltViewModel(backStackEntry)
+
+            DogDetailRoute(
+                viewModel = viewModel,
+                onNavigateBack = {
+                    navController.popBackStack()
                 }
             )
         }
