@@ -3,8 +3,12 @@ package com.pedigreepair.core.di
 import com.pedigreepair.domain.repository.DogRepository
 import com.pedigreepair.domain.repository.OnboardingRepository
 import com.pedigreepair.domain.repository.ThemeRepository
+import com.pedigreepair.domain.repository.filter.BreedRepository
 import com.pedigreepair.domain.repository.home.HomeFeedRepository
+import com.pedigreepair.domain.usecase.details.GetDogDetailsUseCase
 import com.pedigreepair.domain.usecase.dog.GetDogsUseCase
+import com.pedigreepair.domain.usecase.filter.ApplyFeedFiltersUseCase
+import com.pedigreepair.domain.usecase.filter.GetBreedsUseCase
 import com.pedigreepair.domain.usecase.home.GetHomeFeedUseCase
 import com.pedigreepair.domain.usecase.home.ToggleFavoriteUseCase
 import com.pedigreepair.domain.usecase.onboarding.CheckAppLaunchDestinationUseCase
@@ -84,5 +88,27 @@ object UseCaseModule {
         repository: HomeFeedRepository
     ): ToggleFavoriteUseCase {
         return ToggleFavoriteUseCase(repository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetDogDetailsUseCase(
+        repository: HomeFeedRepository
+    ): GetDogDetailsUseCase {
+        return GetDogDetailsUseCase(repository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideApplyFeedFiltersUseCase(): ApplyFeedFiltersUseCase {
+        return ApplyFeedFiltersUseCase()
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetBreedsUseCase(
+        breedRepository: BreedRepository
+    ): GetBreedsUseCase {
+        return GetBreedsUseCase(breedRepository)
     }
 }

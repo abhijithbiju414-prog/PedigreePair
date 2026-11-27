@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -23,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pedigreepair.core.designsystem.theme.PedigreeTheme
 import com.pedigreepair.domain.model.home.FeedVieLayoutMode
@@ -36,7 +36,7 @@ import com.pedigreepair.presentation.home.componenets.HomeTopBar
 import com.pedigreepair.presentation.home.componenets.SingleColumnDogCard
 import com.pedigreepair.presentation.home.contract.HomeUiEffect
 import com.pedigreepair.presentation.home.contract.HomeUiState
-import com.pedigreepair.presentation.home.HomeViewModel
+import com.pedigreepair.presentation.navigation.ScreenRoute
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -46,9 +46,9 @@ fun HomeScreenRoute(
     onOpenProfile: () -> Unit,
     onOpenFilterSheet: () -> Unit,
     onOpenNotifications: () -> Unit,
+    onNavigateToBottomDestination: (ScreenRoute) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel,
-    bottomBarAnchor: @Composable () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -81,7 +81,12 @@ fun HomeScreenRoute(
         onProfileClicked = viewModel::onProfileClicked,
         onFilterClicked = viewModel::onFilterClicked,
         onNotificationClicked = viewModel::onNotificationClicked,
-        bottomBarAnchor = bottomBarAnchor,
+        bottomBarAnchor = {
+            PedigreeBottomBar(
+                currentRoute = ScreenRoute.Home,
+                onNavigateToDestination = onNavigateToBottomDestination
+            )
+        },
         modifier = modifier
     )
 }
@@ -115,7 +120,11 @@ fun HomeScreen(
             HomeBackgroundLayer(backgroundPhotoUrl = uiState.backgroundPhotoUrl)
 
             // Layer 2: Main Content Stack
-            Column(modifier = Modifier.fillMaxSize()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .statusBarsPadding()
+            ) {
                 // Top Fixed Area: Top Bar & Search
                 HomeTopBar(
                     unreadNotificationsCount = uiState.unreadNotificationCount,

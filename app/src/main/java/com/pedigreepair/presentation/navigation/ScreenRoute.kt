@@ -22,7 +22,7 @@ sealed interface ScreenRoute {
     data object AddDog : ScreenRoute
 
     @Serializable
-    data class DogDetail(val dogId: String)
+    data class DogDetail(val dogId: String):ScreenRoute
 
     @Serializable
     data object Profile : ScreenRoute
